@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN" "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">
+<ncx version="2005-1" xmlns="http://www.daisy.org/z3986/2005/ncx/">
+  <head>
+    <meta content="test id" name="dtb:uid"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>{{ title }}</text>
+  </docTitle>
+  <docAuthor>
+    <text>{{ author }}</text>
+  </docAuthor>
+  <navMap>
+  {% for i in range(sections|count) %}
+    <navPoint playOrder="{{ i + 1 }}" class="navpoint-level-1">
+      <navLabel>
+        <text>{{ sections[i].title }}</text>
+      </navLabel>
+      <content src="{{ sections[i].full }}"/>
+    </navPoint>
+   {% endfor %}
+  </navMap>
+</ncx>
