@@ -1,6 +1,6 @@
-#!/usr/bin/env python2
+#!/usr/bin/python
 #coding:utf-8
-import sys,os
+import sys,os,re
 from jinja2 import Template
 from jinja2 import Environment,PackageLoader
 import chardet
@@ -9,9 +9,12 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 if len(sys.argv)<5:
-  print "1-category file path,2-input content files parent path,3-output path"
-  print "4-template path"
-  print "5-book name"
+  print """
+  1-category file path
+  2-input content files parent path
+  3-output path
+  4-template path
+  5-book name"""
   sys.exit(1)
 
 # read cate
@@ -21,7 +24,7 @@ output_dir = sys.argv[3]
 template_dir = sys.argv[4]
 book_name = sys.argv[5]
 
-cate_f = open(cate_path,'r')
+#cate_f = open(cate_path,'r')
 # load templates
 if (os.path.exists(template_dir)==False):
   print 'no templates dir:',template_dir
@@ -41,42 +44,76 @@ else:
 # copy templates files to output_dir
 os.system('cp -r ' + template_dir + '/epubtmp ' + output_dir+'/')
 
+# level config
+zh_n = u'([一二三四五六七八九十百]+)'
+h1=u"(\S+)经卷第%s(\S+)" % zh_n
+h21=u"(\S+)品第%s之%s" % (zh_n,zh_n)
+h22=u"(\S+)品第%s" % (zh_n)
+h3=u"(\S+)奉诏译"
+#levels = [h1,h2,h3]
+levels = {}
+levels[h1]=1
+levels[h21]=2
+levels[h3]=-2 
+levels[h22]=2
+def getlevel(text):
+  for pattern in levels:
+    if re.search(pattern,text):
+      return levels[pattern]
+  return -1 # content
+
+def convert2html(text,limit=20):
+  if len(text)>limit:
+    return "<p>%s</p>" % text
+  else:
+    n = getlevel(text)
+    print text,n
+    if n <0:
+      return "<p>%s</p>" % text
+    else:
+      return "<h%d>%s</h%d>" % (n,text,n)
+
+def getContent(input_path,convert=False):
+    content = []
+    with open(input_path,'r') as f:
+      for cline in f:
+        if convert:
+          hline = convert2html(cline.decode("utf8").strip())
+          content.append(hline)
+        else:
+          content.append(cline)
+    return content
 # convert txt to html
 no=0
 sections=[]
-while 1:
-    lines = cate_f.readlines(100)
-    if not lines:
-        break
-    for title in lines:
-        print title
-        #scode = chardet.detect(title)['encoding']
-        title = title.strip()
-        input_path = input_dir +"/"+ title +".txt"
-        output_path = output_dir + "/epubtmp/OEBPS/Text/"+ str(no) +".html"
-        item = {}
-        item['name'] = "No"+str(no)+".html"
-        item['title'] = title
-        item['full'] = "Text/"+str(no)+".html"
-        item['media_type'] = "application/xhtml+xml"
-        sections.append(item)
-        no = no + 1
-        input_f = open(input_path,'r')
-        output_f = open(output_path,'w')
-        content = []
-        while 1:
-          content_lines = input_f.readlines(10000)
-          if not content_lines:
-              break
-          for cline in content_lines:
-            content.append(cline)
-        item['content'] = content
-        item_tpl = env.get_template('item.html')
-        # output page
-        item_buf = item_tpl.render(item)
-        output_f.write(item_buf)
-        output_f.close()
-        input_f.close()
+convert_flag = True # convert content to html/h1/h2/h3
+
+with open(cate_path,'r') as f:
+  for title in f:
+    print title
+    #scode = chardet.detect(title)['encoding']
+    title = title.strip()
+    input_path = input_dir +"/"+ title +".txt"
+    item = {}
+    item['name'] = "No"+str(no)+".html"
+    item['title'] = title
+    item['full'] = "Text/"+str(no)+".html"
+    item['media_type'] = "application/xhtml+xml"
+    sections.append(item)
+    content = getContent(input_path,convert_flag)
+    item['content'] = content
+    # output page
+    if convert_flag:
+      item_tpl = env.get_template('raw-line.html')
+    else:
+      item_tpl = env.get_template('item.html')
+    item_buf = item_tpl.render(item)
+    output_path = output_dir + "/epubtmp/OEBPS/Text/"+ str(no) +".html"
+    output_f = open(output_path,'w')
+    output_f.write(item_buf)
+    output_f.close()
+    no = no + 1
+        
 
 # output toc
 params={}
