@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN" "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">
+<ncx version="2005-1" xmlns="http://www.daisy.org/z3986/2005/ncx/">
+  <head>
+    <meta content="test id" name="dtb:uid"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text></text>
+  </docTitle>
+  <docAuthor>
+    <text></text>
+  </docAuthor>
+  <navMap>
+    <navPoint playOrder="1" class="navpoint-level-0">
+      <navLabel>
+        <text>K0006道行般若经</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-1"/>
+    <navPoint playOrder="2" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第一淡</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-2"/>
+    <navPoint playOrder="3" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行品第一</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-3"/>
+    </navPoint>
+    <navPoint playOrder="4" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜难问品第二</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-4"/>
+    </navPoint>
+    </navPoint>
+    <navPoint playOrder="5" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若波罗蜜经卷第一</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-5"/>
+    </navPoint>
+    <navPoint playOrder="6" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第二淡<性允></text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-6"/>
+    <navPoint playOrder="7" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜功德品第三</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-7"/>
+    </navPoint>
+    </navPoint>
+    <navPoint playOrder="8" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第二<比丘孝兼></text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-8"/>
+    </navPoint>
+    <navPoint playOrder="9" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第三淡</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-9"/>
+    <navPoint playOrder="10" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜沤和拘舍罗劝助品第四</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-10"/>
+    </navPoint>
+    <navPoint playOrder="11" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经泥犂品第五</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-11"/>
+    </navPoint>
+    <navPoint playOrder="12" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经淸净品第六</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-12"/>
+    </navPoint>
+    </navPoint>
+    <navPoint playOrder="13" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第三</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-13"/>
+    </navPoint>
+    <navPoint playOrder="14" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第四淡<韩允谦></text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-14"/>
+    <navPoint playOrder="15" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜叹品第七</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-15"/>
+    </navPoint>
+    <navPoint playOrder="16" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经持品第八</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-16"/>
+    </navPoint>
+    <navPoint playOrder="17" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经觉品第九<丹觉魔品></text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-17"/>
+    </navPoint>
+    </navPoint>
+    <navPoint playOrder="18" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第四</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-18"/>
+    </navPoint>
+    <navPoint playOrder="19" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第五淡<韩瑗></text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-19"/>
+    <navPoint playOrder="20" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜照明品第十</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-20"/>
+    </navPoint>
+    <navPoint playOrder="21" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经不可计品第十一</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-21"/>
+    </navPoint>
+    <navPoint playOrder="22" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经譬喩品第十二</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-22"/>
+    </navPoint>
+    <navPoint playOrder="23" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经分别品第十三</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-23"/>
+    </navPoint>
+    <navPoint playOrder="24" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经本无品第十四</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-24"/>
+    </navPoint>
+    </navPoint>
+    <navPoint playOrder="25" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第五</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-25"/>
+    </navPoint>
+    <navPoint playOrder="26" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第六淡</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-26"/>
+    <navPoint playOrder="27" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜阿惟越致品第十五</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-27"/>
+    </navPoint>
+    <navPoint playOrder="28" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经怛竭优婆夷品第十六</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-28"/>
+    </navPoint>
+    </navPoint>
+    <navPoint playOrder="29" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第六</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-29"/>
+    </navPoint>
+    <navPoint playOrder="30" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第七淡大节</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-30"/>
+    <navPoint playOrder="31" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜守空品第十七</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-31"/>
+    </navPoint>
+    <navPoint playOrder="32" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经远离品第十八</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-32"/>
+    </navPoint>
+    <navPoint playOrder="33" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经善知识品第十九</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-33"/>
+    </navPoint>
+    </navPoint>
+    <navPoint playOrder="34" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第七</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-34"/>
+    </navPoint>
+    <navPoint playOrder="35" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第八淡公莹</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-35"/>
+    <navPoint playOrder="36" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜释提桓因品第二十</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-36"/>
+    </navPoint>
+    <navPoint playOrder="37" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经贡高品第二十一</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-37"/>
+    </navPoint>
+    <navPoint playOrder="38" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经学品第二十二</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-38"/>
+    </navPoint>
+    <navPoint playOrder="39" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经守行品第二十三</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-39"/>
+    </navPoint>
+    <navPoint playOrder="40" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经强弱品第二十四</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-40"/>
+    </navPoint>
+    </navPoint>
+    <navPoint playOrder="41" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第八</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-41"/>
+    </navPoint>
+    <navPoint playOrder="42" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第九淡</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-42"/>
+    <navPoint playOrder="43" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜累教品第二十五</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-43"/>
+    </navPoint>
+    <navPoint playOrder="44" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经不可尽品第二十六</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-44"/>
+    </navPoint>
+    <navPoint playOrder="45" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经随品第二十七</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-45"/>
+    </navPoint>
+    <navPoint playOrder="46" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经萨陁波伦菩萨品第二十八</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-46"/>
+    </navPoint>
+    </navPoint>
+    <navPoint playOrder="47" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第九</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-47"/>
+    </navPoint>
+    <navPoint playOrder="48" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第十淡</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-48"/>
+    <navPoint playOrder="49" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜昙无竭菩萨品第二十九</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-49"/>
+    </navPoint>
+    <navPoint playOrder="50" class="navpoint-level-2">
+      <navLabel>
+        <text>摩诃般若波罗蜜道行经嘱累品第三十</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-50"/>
+    </navPoint>
+    </navPoint>
+    <navPoint playOrder="51" class="navpoint-level-1">
+      <navLabel>
+        <text>道行般若经卷第十</text>
+      </navLabel>
+      <content src="K0006daoxingbanruojing.html#nav-51"/>
+    </navPoint>
+    </navPoint>
+  </navMap>
+</ncx>

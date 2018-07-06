@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package version="2.0" unique-identifier="BookId" xmlns="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/">
-  <metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:calibre="http://calibre.kovidgoyal.net/2009/metadata" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<package version="2.0" unique-identifier="BookId" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.idpf.org/2007/opf">
+  <metadata xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:calibre="http://calibre.kovidgoyal.net/2009/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/dc/elements/1.1/">
     <meta name="cover" content="cover-image" />
     <dc:title>{{ title }}</dc:title>
     <dc:creator>{{ creator }}</dc:creator>
@@ -11,14 +11,14 @@
     <dc:date xmlns:opf="http://www.idpf.org/2007/opf" opf:event="modification">{{ date }}</dc:date>
   </metadata>
   <manifest>
-    <item id="css" href="styles/stylesheet.css" media-type="text/css"/>
+    <item id="css" href="Styles/stylesheet.css" media-type="text/css"/>
     {% for item in files %}
     <item id="{{ item.name }}" href="{{ item.full }}" media-type="{{ item.media_type }}"/>
     {% endfor %}
     <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
   </manifest>
   <spine toc="ncx">
-    {% for item in spine %}
+    {% for item in files %}
     <itemref idref="{{ item.name }}"/>
     {% endfor %}
   </spine>

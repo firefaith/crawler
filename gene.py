@@ -1,10 +1,12 @@
 #!/usr/bin/python
 #coding:utf-8
-import sys,os,re
-from jinja2 import Template
-from jinja2 import Environment,PackageLoader
-import chardet
+import os
+import re
+import sys
 import uuid
+
+from jinja2 import Environment, PackageLoader
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -54,26 +56,48 @@ h3=u"(\S+)奉诏译"
 levels = {}
 levels[h1]=1
 levels[h21]=2
-levels[h3]=-2 
+levels[h3]=0 # author
 levels[h22]=2
+
 def getlevel(text):
   for pattern in levels:
     if re.search(pattern,text):
       return levels[pattern]
-  return -1 # content
+  return 0 # content
 
-def convert2html(text,limit=20):
+def getlevels(filepath):
+  levels = []
+  with open(filepath,'r') as f:
+    pos = 0
+    for line in f:
+      cline = line.decode("utf8").strip()
+      level = getlevel(cline)
+      levels.append((cline,level))
+      pos += 1
+  return levels
+
+def line2p(l):
+  return "<p>%s<p>" % l
+def line2h(l,hx,nid):
+  return "<h%d id=%s>%s</h%d>" %(hx,nid,l,hx)
+def navid(order_n):
+  return "nav-%d" % order_n
+
+
+
+# deprecate
+def convert2html(text,limit=20,last_order=1):
   if len(text)>limit:
-    return "<p>%s</p>" % text
+    return (None,"<p>%s</p>" % text)
   else:
     n = getlevel(text)
     print text,n
-    if n <0:
-      return "<p>%s</p>" % text
+    if n < 0:
+      return (None,"<p>%s</p>" % text)
     else:
       return "<h%d>%s</h%d>" % (n,text,n)
-
-def getContent(input_path,convert=False):
+# deprecate
+def getContent(input_path,convert=False,order=1):
     content = []
     with open(input_path,'r') as f:
       for cline in f:
@@ -87,7 +111,6 @@ def getContent(input_path,convert=False):
 no=0
 sections=[]
 convert_flag = True # convert content to html/h1/h2/h3
-
 with open(cate_path,'r') as f:
   for title in f:
     print title
@@ -98,6 +121,7 @@ with open(cate_path,'r') as f:
     item['name'] = "No"+str(no)+".html"
     item['title'] = title
     item['full'] = "Text/"+str(no)+".html"
+    #topNode.add_sub(title,item['full'])
     item['media_type'] = "application/xhtml+xml"
     sections.append(item)
     content = getContent(input_path,convert_flag)
