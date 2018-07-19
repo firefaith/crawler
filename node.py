@@ -283,19 +283,19 @@ if __name__ == "__main__":
     #filelist = ch.readfilelistfromcate(cate_path,input_dir)
     #ch.convert(filelist, "鸠摩罗什法师译丛",output_dir="tmp")
 
-
-    cate_path = "/Users/admin/Public/workplace/pyproj/crawler/cate/shzbl.cate"
-    input_dir = "/Users/admin/Public/workplace/pyproj/crawler/book_raw_data/shzbl"
+    name = "hdnj"
+    cate_path = "/Users/admin/Public/workplace/pyproj/crawler/cate/%s.cate" % name
+    input_dir = "/Users/admin/Public/workplace/pyproj/crawler/book_raw_data/%s" % name
     filelist = ch.readfilelistfromcate(cate_path,input_dir)
 
     bookinfo = BookMeta()
-    bookinfo.title = "伤寒杂病论"
-    bookinfo.creator = "张仲景"
-    bookinfo.description = None
+    bookinfo.title = "黄帝内经"
+    bookinfo.creator = "黄帝岐伯"
+    bookinfo.description = "《黄帝内经》简称《内经》，是我国现存*早的医学文 献典籍，它全面地阐述了中医学理论体系的基本内容，反映了中医学的理论原则和学术思想。这一理论体系的建立为中医学的发展奠定了基础，中医学史上的著名医 家和医学流派，都是在《内经》理论体系的基础上发展起来的，所以，《内经》为医学之祖。从形式结构上看，《内经》包括《素问》和《灵枢》两部 分，各十八卷、各八十一篇。《内经》的学术理论体系是古代医家通过长期的医疗实践，在古代哲学思想指导下形成的。由于其理论体系的科学性和实践性，千百年 来有效地指导着中医的临床实践，为中医学的发展奠定了基础。其内容又不仅限于医学，而与中国古代的哲学、天文、地理等学科密切相关，是一部关于哲学和自然 科学的综合著作。"
     bookinfo.publisher = "firefaith"
     params= bookinfo.getParams()
 
-    ch.convert(filelist, params,output_dir="epub/shzbl")
+    ch.convert(filelist, params,output_dir="epub/%s" % name)
     #if len(sys.argv) < 5:
     #    print """
     #  1-category file path
