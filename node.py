@@ -1,11 +1,12 @@
 #!/usr/bin/python
-# -*- coding=utf-8 -*-
+# ! -*- coding=utf-8 -*-
 
 import ConfigParser as cp
 import os, re, sys
-import pinyin,uuid
+import pinyin, uuid
 from jinja2 import Environment, PackageLoader
-import datetime,copy
+import datetime, copy, shutil, zipfile
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -28,7 +29,6 @@ class ConvertHtml(object):
         self.item_tpl = env.get_template(conf.get("templates", "page"))
         self.content_tpl = env.get_template(conf.get("templates", "content"))
 
-
     def getlevel(self, text):
         for pattern in self.level_map:
             if re.search(pattern, text):
@@ -48,18 +48,29 @@ class ConvertHtml(object):
         ''' get file's pinyin name and file name'''
         name = os.path.basename(filepath).split(".")[0]
         pname = pinyin.get(name, format="strip")
+        pname = pname.replace("(","").replace(")","").replace("（","").replace("）","").replace("～","_")
         return (pname, name)
 
-    def readfilelistfromcate(self, cate_path,input_dir):
+    def readfilelistfromcate(self, cate_path, input_dir):
         filelist = []
-        with open(cate_path,'r') as f:
-          for title in f:
-            #scode = chardet.detect(title)['encoding']
-            title = title.strip()
-            input_path = input_dir +"/"+ title +".txt"
-            filelist.append(input_path)
+        with open(cate_path, 'r') as f:
+            for title in f:
+                # scode = chardet.detect(title)['encoding']
+                title = title.strip()
+                input_path = input_dir + "/" + title + ".txt"
+                filelist.append(input_path)
         return filelist
 
+    def readfile(self, dir, decd="gbk"):
+        filelist = []
+        for root, dirs, files in os.walk(dir, topdown=False):
+            for name in files:
+                if name.endswith("txt"):
+                    filelist.append(os.path.join(root, name).strip().decode(decd))
+            for name in dirs:
+                filelist += self.readfile(os.path.join(root, name))
+
+        return filelist
 
     def get_section_item(self, fname, title):
         item = {}
@@ -69,50 +80,62 @@ class ConvertHtml(object):
         item['media_type'] = "application/xhtml+xml"
         return item
 
-    def write_item(self, data, fname,output_dir):
-        output_path = output_dir + "/epubtmp/OEBPS/Text/" + fname
+    def write_item(self, data, fname, output_dir):
+        output_path = os.path.join(output_dir, "OEBPS", "Text", fname)
         output_f = open(output_path, 'w')
         item_buf = self.item_tpl.render(data)
         output_f.write(item_buf)
         output_f.close()
 
-    def write_toc(self, category,output_dir):
+    def write_toc(self, category, output_dir):
         '''
         write toc
         :param category: list of subcate
         :return:
         '''
-        out_toc = open(output_dir + '/epubtmp/OEBPS/toc.ncx', 'w')
+        out_toc = open(os.path.join(output_dir, "OEBPS", "toc.ncx"), 'w')
         toc = self.toc_tpl.render({"cates": category})
         out_toc.write(toc)
 
-    def write_content_opf(self,params,output_dir):
+    def write_content_opf(self, params, output_dir):
         cnt = self.content_tpl.render(params)
-        out_cnt = open(output_dir+'/epubtmp/OEBPS/content.opf','w')
+        out_cnt = open(os.path.join(output_dir, "OEBPS", "content.opf"), 'w')
         out_cnt.write(cnt)
 
-        pass
 
-    def check_output(self,output_dir):
-        if (os.path.exists(output_dir) == False):
-            os.makedirs(output_dir)
-            print "create output dir:", output_dir
-        else:
-            os.system('rm -rf ' + output_dir + "/*")
+    def check_output(self, output_dir):
+        if os.path.exists(output_dir) :
+            shutil.rmtree(output_dir)
             print "clear output dir:", output_dir
+            #os.makedirs(output_dir)
+            #print "create output dir:", output_dir
 
-    def preprocess(self,line):
+    def preprocess(self, line):
         line = line.decode("utf8").strip()
-        line = line.replace("<","(")
-        line = line.replace(">",")")
+        line = line.replace("<", "(")
+        line = line.replace(">", ")")
         return line
 
-    def copy_template(self,output_dir):
+    def copy_template(self, output_dir):
         # copy templates files to output_dir
-        os.system('cp -r ' + self.templates + '/epubtmp ' + output_dir + '/')
-    def pack_epub(self,output_dir,book_name):
-        os.system(
-        'cd ' + output_dir + '/epubtmp && zip -r ' + book_name + '.epub ' + './* && mv ' + book_name + ".epub ../")
+        #os.system('cp -r ' + self.templates + '/epubtmp ' + output_dir + '/')
+        shutil.copytree(os.path.join(self.templates,"epubtmp"),output_dir)
+
+    def zipdir(self,path, ziph):
+        # ziph is zipfile handle
+        for root, dirs, files in os.walk(path):
+            for file in files:
+                ziph.write(os.path.join(root, file))
+            for dir in dirs:
+                self.zipdir(os.path.join(root,dir),ziph)
+
+    def zipfile(self,input,output):
+        zipf = zipfile.ZipFile(output, 'w', zipfile.ZIP_DEFLATED)
+        self.zipdir(input, zipf)
+        zipf.close()
+
+    def pack_epub(self, output_dir, book_name):
+        self.zipfile(output_dir,os.path.join(output_dir,book_name+".epub"))
         print 'Completed!'
 
     def convert(self, filepathlist, params, output_dir):
@@ -130,7 +153,7 @@ class ConvertHtml(object):
         for filepath in filepathlist:
             sub_order = order + 1
             sub_pname, sub_name = self.filename(filepath)
-            print sub_name
+            print "file name",sub_name
             sub_outf = "%s.html" % sub_pname
             sub_id = self.navid(sub_order)
             sub_src_url = "Text/%s#%s" % (sub_outf, sub_id)
@@ -160,15 +183,15 @@ class ConvertHtml(object):
 
                 # output html
                 out = {"content": fhtml, "title": sub_name}
-                self.write_item(out, sub_outf,output_dir)
+                self.write_item(out, sub_outf, output_dir)
                 # add to category
                 cate.append(sub_cate)
         # output category
-        self.write_toc(cate,output_dir)
+        self.write_toc(cate, output_dir)
         # output content opf
         params['files'] = sections[:]
-        self.write_content_opf(params,output_dir)
-        self.pack_epub(output_dir,title)
+        self.write_content_opf(params, output_dir)
+        self.pack_epub(output_dir, title)
         return ""
 
 
@@ -244,10 +267,11 @@ class Category(object):
         outline = self.outp(1, self)
         return "\n".join(outline)
 
+
 class BookMeta(object):
     def __init__(self):
         self.title = None
-        self.creator = os.environ['USER']
+        self.creator = os.environ['username']  # os.environ['USER']
         self.identifier = uuid.uuid1()
         self.description = None
         self.publisher = None
@@ -257,8 +281,8 @@ class BookMeta(object):
         params = {}
         x = self.__dict__
         for k in x:
-           if x[k] is not None:
-               params[k] = x[k]
+            if x[k] is not None:
+                params[k] = x[k]
         return params
 
 
@@ -278,36 +302,25 @@ if __name__ == "__main__":
     """
 
     ch = ConvertHtml()
-    #cate_path = "/Users/admin/Public/workplace/pyproj/crawler/cate/lsfs.cate"
-    #input_dir = "/Users/admin/Public/workplace/pyproj/crawler/book_raw_data/outglz"
-    #filelist = ch.readfilelistfromcate(cate_path,input_dir)
-    #ch.convert(filelist, "鸠摩罗什法师译丛",output_dir="tmp")
+    # cate_path = "/Users/admin/Public/workplace/pyproj/crawler/cate/lsfs.cate"
+    # input_dir = "/Users/admin/Public/workplace/pyproj/crawler/book_raw_data/outglz"
+    # filelist = ch.readfilelistfromcate(cate_path,input_dir)
+    # ch.convert(filelist, "鸠摩罗什法师译丛",output_dir="tmp")
 
-    name = "hdnj"
-    cate_path = "/Users/admin/Public/workplace/pyproj/crawler/cate/%s.cate" % name
-    input_dir = "/Users/admin/Public/workplace/pyproj/crawler/book_raw_data/%s" % name
-    filelist = ch.readfilelistfromcate(cate_path,input_dir)
-
+    name = "dzj"
+    # cate_path = "/Users/admin/Public/workplace/pyproj/crawler/cate/%s.cate" % name
+    input_dir = os.path.join(os.getcwd(), "book_raw_data", name,"大乘华严部".decode("utf8").encode("gbk"))
+    output_dir = os.path.join(os.getcwd(), "epub", "dzj-hy")
+    # filelist = ch.readfilelistfromcate(cate_path,input_dir)
+    filelist = ch.readfile(input_dir)
+    print input_dir
+    for f in filelist:
+        print f
     bookinfo = BookMeta()
-    bookinfo.title = "黄帝内经"
-    bookinfo.creator = "黄帝岐伯"
-    bookinfo.description = "《黄帝内经》简称《内经》，是我国现存*早的医学文 献典籍，它全面地阐述了中医学理论体系的基本内容，反映了中医学的理论原则和学术思想。这一理论体系的建立为中医学的发展奠定了基础，中医学史上的著名医 家和医学流派，都是在《内经》理论体系的基础上发展起来的，所以，《内经》为医学之祖。从形式结构上看，《内经》包括《素问》和《灵枢》两部 分，各十八卷、各八十一篇。《内经》的学术理论体系是古代医家通过长期的医疗实践，在古代哲学思想指导下形成的。由于其理论体系的科学性和实践性，千百年 来有效地指导着中医的临床实践，为中医学的发展奠定了基础。其内容又不仅限于医学，而与中国古代的哲学、天文、地理等学科密切相关，是一部关于哲学和自然 科学的综合著作。"
+    bookinfo.title = "大藏经-大乘华严部"
+    bookinfo.creator = "世尊"
+    bookinfo.description = "《乾隆大藏经》为清代官刻汉文大藏经，亦称《清藏》，又因经页边栏饰以龙纹名《龙藏》。它始刻于清雍正十一年（1733），完成于乾隆三年（1738）。全藏共收录经、律、论、杂著等1669部，7168卷。"
     bookinfo.publisher = "firefaith"
-    params= bookinfo.getParams()
+    params = bookinfo.getParams()
 
-    ch.convert(filelist, params,output_dir="epub/%s" % name)
-    #if len(sys.argv) < 5:
-    #    print """
-    #  1-category file path
-    #  2-input content files parent path
-    #  3-output path
-    #  4-book name"""
-    #    sys.exit(1)
-    """
-    # read cate
-    cate_path = sys.argv[1]
-    input_dir = sys.argv[2]
-    output_dir = sys.argv[3]
-    book_name = sys.argv[4]
-
-    """
+    ch.convert(filelist, params, output_dir=output_dir)
